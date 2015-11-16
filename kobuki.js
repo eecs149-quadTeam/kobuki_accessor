@@ -9,7 +9,7 @@ var currentDir;
 var onNewLocation;
 
 exports.setup = function() {
-
+    extend('net/WebSocketClient');
     // Expects location to be of the form: x,y
     input('location', {
         type: 'string',
@@ -23,6 +23,8 @@ exports.setup = function() {
 }
 
 exports.initialize = function() {
+    this.ssuper.initialize.apply(this);
+
     onNewLocation = addInputHandler('location', newLocationHandler);
 }
 
