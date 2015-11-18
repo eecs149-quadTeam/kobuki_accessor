@@ -7,6 +7,7 @@ This repository will contain the Accessor for the Kobuki machines. For more info
 To run the Web Socket server, first install the Node.js packages (assumes you have [Node.js](https://nodejs.org/en/) installed).
 
 `cd wss_1`
+
 `npm install`
 
 Then, run the `server.js` file.
@@ -18,6 +19,7 @@ Then, run the `server.js` file.
 To run the command-line client, first install the Node.js packages (assumes you have [Node.js](https://nodejs.org/en/) installed).
 
 `cd cl_client`
+
 `npm install`
 
 Make sure the server is running before starting the client.
