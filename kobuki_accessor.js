@@ -10,6 +10,11 @@ var onNewLocation;
 
 exports.setup = function() {
     extend('net/WebSocketClient');
+    parameter('port', {
+        type: 'int',
+        value: 3000
+    });
+
     // Expects location to be of the form: x,y
     input('location', {
         type: 'string',
@@ -25,7 +30,15 @@ exports.setup = function() {
 exports.initialize = function() {
     this.ssuper.initialize.apply(this);
 
+    // Advertise which Kobuki and location
+    var advertise = {
+        id: '1',
+        pos: '0,0'
+    };
+
     onNewLocation = addInputHandler('location', newLocationHandler);
+
+    exports.sendToWebSocket(advertise);
 }
 
 /** Returns array of [x, y] coords given a string of the form x,y */
@@ -73,5 +86,8 @@ function newLocationHandler() {
     var distance = isDiagonal(dir) ? 1.414 : 1.0;
 
     // send numTurns
+    exports.sendToWebSocket(numTurns);
+
     // send distance
+    exports.sendToWebSocket(distance);
 }
