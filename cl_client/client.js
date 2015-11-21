@@ -2,10 +2,10 @@
 
 // Assuming 6x6 grid
 var XY_PATTERN = /[1-6],[ ]*[1-6]/;
-var SOCKET_URL = 'http://localhost';
+var SOCKET_URL = 'ws://localhost:5000';
 
 var readline = require('readline');
-var io_client = require('socket.io-client');
+var WebSocket = require('ws');
 
 var rl = readline.createInterface({
   input: process.stdin,
@@ -14,9 +14,9 @@ var rl = readline.createInterface({
 
 console.log('When prompted, enter in x,y coordinates of the form x,y and in the range [1,6]. To exit, press ctrl+C or type "quit".');
 
-var socket = io_client.connect('http://localhost:3000');
+var socket = new WebSocket(SOCKET_URL);
 
-socket.on('connect', function () {
+socket.on('open', function () {
     console.log('Connected to socket at ' + SOCKET_URL + '.');
     console.log('Where do you want to move the Kobuki?');
 
@@ -30,6 +30,8 @@ socket.on('connect', function () {
             console.log('Invalid coordinates. Coordinates must be of the form x,y and in the range [1,6]');
         }
     });
+});
 
-
+socket.on('message', function (msg) {
+    console.log('Received message from socket: ' + msg);
 });
